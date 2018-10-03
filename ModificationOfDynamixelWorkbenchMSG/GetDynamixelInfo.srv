@@ -1,0 +1,9 @@
+# It is Served by 'single_dynamixel_monitor' node
+# This message is used to get information of dynamixel
+
+uint8 dxl_id
+uint8 port
+
+---
+
+DynamixelInfo dynamixel_info
