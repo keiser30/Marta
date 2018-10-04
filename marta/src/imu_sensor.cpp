@@ -99,33 +99,50 @@ void ImuSensor::imuSensorTempMsgCallback(const std_msgs::Float32::ConstPtr& msg)
 }
 
 std::vector<float> ImuSensor::get_orientation_quaternion(int index)
-{
-	return orientationQuaternion[index];
+{	
+	std::vector<float> vec;
+	if(index < IMU_NUMBER)
+		return orientationQuaternion[index];
+	return vec;
 }
 
 std::vector<float> ImuSensor::get_angular_velocity(int index)
 {
-	return angularVelocity[index];
+	std::vector<float> vec;
+	if(index < IMU_NUMBER)
+		return angularVelocity[index];
+	return vec;
 }
 
 std::vector<float> ImuSensor::get_linear_acceleration(int index)
 {
-	return linearAcceleration[index];
+	std::vector<float> vec;
+	if(index < IMU_NUMBER)
+		return linearAcceleration[index];
+	return vec;
 }
 
 std::vector<float> ImuSensor::get_magnetometer(int index)
 {
-	return magnetometer[index];
+	std::vector<float> vec;
+	if(index < IMU_NUMBER)
+		return magnetometer[index];
+	return vec;
 }
 
 std::vector<float> ImuSensor::get_orientation_radians(int index)
 {
-	return orientationRadians[index];
+	std::vector<float> vec;
+	if(index < IMU_NUMBER)
+		return orientationRadians[index];
+	return vec;
 }
 
 float ImuSensor::get_temperature(int index)
 {
-	return temperature[index];
+	if(index < IMU_NUMBER)
+		return temperature[index];
+	return -1.0;
 }
 
 
