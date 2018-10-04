@@ -9,6 +9,8 @@
 #include "dynamixel_workbench_msgs/DynamixelCommand.h"
 #include "dynamixel_workbench_msgs/GetDynamixelInfo.h"
 #include "../include/my_dynamixel_workbench_single_manager/marta_dynamixel_controller.h"
+#include "../include/my_dynamixel_workbench_single_manager/camera_sensor.h"
+#include "../include/my_dynamixel_workbench_single_manager/imu_sensor.h"
 
 using namespace std;
 using namespace cv;
@@ -22,6 +24,8 @@ int main(int argc, char **argv)
   //DynamixelController dynamixel_controller;
 	MartaDynamixelController marta_controller(*argv);
 	marta_controller.InitializeDynamixelController();
+	CameraSensor camera;
+	ImuSensor imu;
 	//ros::spinOnce();
   ros::Rate loop_rate(250);
 	
@@ -34,6 +38,9 @@ int main(int argc, char **argv)
 		//printf("Present_position1: %d \n", dynamixel_controller.move_to(5, 0, 100));
 		//marta_controller.move_to(4, 0);
 		//marta_controller.move_to(1, 0);
+		std::cout << "Width " << camera.get_width() << std::endl;
+		std::cout << "IMU " << imu.get_temperature(0) << std::endl;
+		camera.show_image();
 		marta_controller.move_to(1, 100);
 		marta_controller.move_to(4, 1000);
     ros::spinOnce();

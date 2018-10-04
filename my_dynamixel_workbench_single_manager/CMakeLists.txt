@@ -13,6 +13,7 @@ find_package(catkin REQUIRED COMPONENTS
 	cv_bridge
 	image_transport
 	sensor_msgs
+	geometry_msgs
   dynamixel_workbench_msgs
 	dynamixel_workbench_toolbox
 )
@@ -76,6 +77,7 @@ generate_messages(
    DEPENDENCIES
    std_msgs
 	 sensor_msgs
+	 geometry_msgs
  )
 
 ################################################
@@ -110,7 +112,7 @@ generate_messages(
 catkin_package(
   INCLUDE_DIRS include
   LIBRARIES my_dynamixel_workbench_single_manager
-  CATKIN_DEPENDS roscpp std_msgs dynamixel_workbench_msgs dynamixel_workbench_toolbox cv_bridge image_transport
+  CATKIN_DEPENDS roscpp std_msgs geometry_msgs dynamixel_workbench_msgs dynamixel_workbench_toolbox cv_bridge image_transport 
   DEPENDS system_lib
 )
 
@@ -134,7 +136,7 @@ find_package(OpenCV REQUIRED)
 
 include_directories(include $(OpenCV_INCLUDE_DIRS))
 add_executable(marta_software src/marta_software.cpp)
-add_library(myClasses src/dynamixel_controller.cpp src/marta_dynamixel_controller.cpp)
+add_library(myClasses src/dynamixel_controller.cpp src/marta_dynamixel_controller.cpp src/camera_sensor.cpp src/imu_sensor.cpp)
 target_link_libraries(marta_software 
 						${catkin_LIBRARIES}
 						${OpenCV_LIBRARIES}

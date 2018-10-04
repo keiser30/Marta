@@ -2,7 +2,7 @@
 	<arg name="device_name0"      default="/dev/ttyUSB0"/>
 	<arg name="baud_rate0"        default="57600"/>
 
-	<arg name="device_name1"      default="/dev/ttyUSB1"/>
+	<arg name="device_name1"      default="/dev/ttyUSB2"/>
   <arg name="baud_rate1"        default="57600"/>
 
 	<arg name="scan_range"       default="200"/>
@@ -18,3 +18,5 @@
   <node name="marta_dynamixel_monitor" pkg="my_dynamixel_workbench_single_manager"
         type="marta_dynamixel_monitor" required="true" output="screen"/>
 </launch>
+
+

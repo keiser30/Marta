@@ -1,5 +1,5 @@
-#ifndef MY_DYNAMIXEL_WORKBENCH_SINGLE_DYNAMIXEL_CONTROLLER_H
-#define MY_DYNAMIXEL_WORKBENCH_SINGLE_DYNAMIXEL_CONTROLLER_H
+#ifndef DYNAMIXEL_CONTROLLER_H
+#define DYNAMIXEL_CONTROLLER_H
 
 #include <fcntl.h>          // FILE control
 #include <termios.h>        // Terminal IO
@@ -90,4 +90,4 @@ class DynamixelController
 };
 }
 
-#endif //MY_DYNAMIXEL_WORKBENCH_SINGLE_DYNAMIXEL_CONTROLLER_H
+#endif //DYNAMIXEL_CONTROLLER_H
