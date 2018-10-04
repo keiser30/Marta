@@ -1,0 +1,24 @@
+
+<launch>
+  <arg name="device_name0"      default="/dev/ttyUSB0"/>
+  <arg name="baud_rate0"        default="57600"/>
+	
+	<arg name="device_name1"      default="/dev/ttyUSB1"/>
+  <arg name="baud_rate1"        default="57600"/>
+
+  <arg name="scan_range"       default="25"/>
+
+  <param name="device_name0"      value="$(arg device_name0)"/>
+  <param name="baud_rate0"        value="$(arg baud_rate0)"/>
+
+	<param name="device_name1"      value="$(arg device_name1)"/>
+  <param name="baud_rate1"        value="$(arg baud_rate1)"/>
+
+  <param name="scan_range"        value="$(arg scan_range)"/>
+
+  <node name="single_dynamixel_monitor" pkg="marta"
+        type="single_dynamixel_monitor" required="true" output="screen"/>
+
+  <node name="single_dynamixel_controller" pkg="marta"
+        type="single_dynamixel_controller" required="true" output="screen"/>
+</launch>

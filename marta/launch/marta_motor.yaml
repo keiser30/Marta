@@ -1,0 +1,158 @@
+%YAML:1.0
+---
+DOF: 25
+Head:
+   ModelMotor: "MX64"
+   NumberMotor: 2
+   Motor1:
+      ID: 1
+      Init: 2048
+      Min: 0
+      Max: 4095
+   Motor2:
+      ID: 2
+      Init: 2048
+      Min: 0
+      Max: 4095
+LeftArm:
+   ModelMotor: "MX64"
+   NumberMotor: 3
+   Motor1:
+      ID: 5
+      Init: 2048
+      Min: 0
+      Max: 4095
+   Motor2:
+      ID: 4
+      Init: 2048
+      Min: 0
+      Max: 4095
+   Motor3:
+      ID: 3
+      Init: 2048
+      Min: 0
+      Max: 4095
+LeftHip:
+   ModelMotor: "MX64"
+   NumberMotor: 3
+   Motor1:
+      ID: 11
+      Init: 2048
+      Min: 0
+      Max: 4095
+   Motor2:
+      ID: 10
+      Init: 2048
+      Min: 0
+      Max: 4095
+   Motor3:
+      ID: 9
+      Init: 2048
+      Min: 0
+      Max: 4095
+LeftKnee:
+   ModelMotor: "MX64"
+   NumberMotor: 1
+   Motor1:
+      ID: 12
+      Init: 2048
+      Min: 0
+      Max: 4095
+LeftFoot:
+   ModelMotor: "MX64"
+   NumberMotor: 3
+   Motor1:
+      ID: 15
+      Init: 2048
+      Min: 0
+      Max: 4095
+   Motor2:
+      ID: 14
+      Init: 2048
+      Min: 0
+      Max: 4095
+   Motor3:
+      ID: 13
+      Init: 2048
+      Min: 0
+      Max: 4095
+Waist:
+   ModelMotor: "MX64"
+   NumberMotor: 3
+   Motor1:
+      ID: 16
+      Init: 2048
+      Min: 0
+      Max: 4095
+   Motor2:
+      ID: 17
+      Init: 2048
+      Min: 0
+      Max: 4095
+   Motor3:
+      ID: 18
+      Init: 2048
+      Min: 0
+      Max: 4095
+RightArm:
+   ModelMotor: "MX64"
+   NumberMotor: 3
+   Motor1:
+      ID: 6
+      Init: 2048
+      Min: 0
+      Max: 4095
+   Motor2:
+      ID: 7
+      Init: 2048
+      Min: 0
+      Max: 4095
+   Motor3:
+      ID: 8
+      Init: 2048
+      Min: 0
+      Max: 4095
+RightHip:
+   ModelMotor: "MX64"
+   NumberMotor: 3
+   Motor1:
+      ID: 19
+      Init: 2048
+      Min: 0
+      Max: 4095
+   Motor2:
+      ID: 20
+      Init: 2048
+      Min: 0
+      Max: 4095
+   Motor3:
+      ID: 21
+      Init: 2048
+      Min: 0
+      Max: 4095
+RightKnee:
+   ModelMotor: "MX64"
+   NumberMotor: 1
+   Motor1:
+      ID: 22
+      Init: 2048
+      Min: 0
+      Max: 4095
+RightFoot:
+   ModelMotor: "MX64"
+   NumberMotor: 3
+   Motor1:
+      ID: 23
+      Init: 2048
+      Min: 0
+      Max: 4095
+   Motor2:
+      ID: 24
+      Init: 2048
+      Min: 0
+      Max: 4095
+   Motor3:
+      ID: 25
+      Init: 2048
+      Min: 0
+      Max: 4095
