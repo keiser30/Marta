@@ -4,7 +4,7 @@
 using namespace cv;
 using namespace std;
 
-MartaDynamixelController::MartaDynamixelController(std::string dir)
+MartaDynamixelController::MartaDynamixelController(std::string dir): min_radian(-3.14), max_radian(3.14)
 {
   // init Service Client
 	fileDir = "";
@@ -118,13 +118,22 @@ bool MartaDynamixelController::InitializeDynamixelController()
 			
 				vec.push_back(min);
 				vec.push_back(max);
-				
-				map_ids[DXL_id] = vec;
-				vec.clear();
 
 				dynamixel_controller.set_torque(index, DXL_id, port, 1);
-				move_to(DXL_id, id_init);
+				if (id_init >= min && id_init <= max)
+				{
+					vec.push_back(id_init);
+				}
+				else
+				{
+					vec.push_back(2048);
+				}
+
+				map_ids[DXL_id] = vec;
+				vec.clear();
 				
+				move(DXL_id, id_init);
+			
 			}
 		}
 	}
@@ -135,23 +144,76 @@ bool MartaDynamixelController::InitializeDynamixelController()
 		std::cout << " client: " << partsOfMarta[it->second[0]];
 		std::cout << " port: " << it->second[1];
 		std::cout << " min: " << it->second[2];
-		std::cout << " max: " << it->second[3] << std::endl;
+		std::cout << " max: " << it->second[3];
+		std::cout << " id_init: " << it->second[4] << std::endl;
 	}
 
 		printf("Humanoid with DOF %d, but only connect %d \n", dof, map_ids.size());
 }
 
-/* ********* GETTERS  MX-64 ********************/
-int MartaDynamixelController::get_present_position(int DXL_ID)
+
+bool MartaDynamixelController::move(int DXL_ID, int goal_position)
 {
 	std::map<int, std::vector<int> >::const_iterator it = map_ids.find(DXL_ID);
 	if(it == map_ids.end())
-		return -1;
+	{
+		return false;
+	}
+	if(goal_position >= it->second[2] && goal_position <= it->second[3])
+	{
+		if(dynamixel_controller.move_to(it->second[0], DXL_ID, it->second[1], goal_position))
+		{
+			return true;
+		}
+	}	
 
+	return false;
+}
+
+float MartaDynamixelController::convert_Value2Radian(int value, int v_zero, int max_position, int min_position)
+{
+	float radian = 0.0;
+	if(value > v_zero)
+		radian = ((value - v_zero) * max_radian) / (max_position - v_zero);
+	else
+	{
+		if(value < v_zero)
+			radian = ((value - v_zero) * min_radian) / (min_position - v_zero);
+	}
+
+	return radian;
+		
+}
+
+int MartaDynamixelController::convert_Radian2Value(float radian, int v_zero, int max_position, int min_position)
+{
+	int value = v_zero;
+	if(radian > 0.0)
+		value = (radian * (max_position - v_zero) / max_radian) + v_zero;
+	else
+	{
+		if(radian < 0.0)
+			value = (radian * (min_position - v_zero) / min_radian) + v_zero;
+	}
+
+	return value;
+}
+
+
+/* ********* GETTERS  MX-64 ********************/
+float MartaDynamixelController::get_present_position(int DXL_ID)
+{
+	std::map<int, std::vector<int> >::const_iterator it = map_ids.find(DXL_ID);
+	if(it == map_ids.end())
+		return 0;
+
+	float radian;
 	if (it->second[1] == 0)
-		return dynamixel_controller.get_present_position(it->second[0], DXL_ID, it->second[1]);
+		radian = dynamixel_controller.get_present_position(it->second[0], DXL_ID, it->second[1]);
 	else	
-		return dynamixel_controller.get_present_positionAX(it->second[0], DXL_ID, it->second[1]);
+		radian = dynamixel_controller.get_present_positionAX(it->second[0], DXL_ID, it->second[1]);
+
+	return ROUNDF(convert_Value2Radian(radian, it->second[4], it->second[3], it->second[2]), 100);
 }
 
 int MartaDynamixelController::get_firmware_version(int DXL_ID)
@@ -324,15 +386,17 @@ void MartaDynamixelController::shutdownMartaDynamixelController()
 }
 
 
-bool MartaDynamixelController::move_to(int DXL_ID, int goal_position)
+bool MartaDynamixelController::move_to(int DXL_ID, float goal_position)
 {
 	std::map<int, std::vector<int> >::const_iterator it = map_ids.find(DXL_ID);
 	if(it == map_ids.end())
 		return false;
 	
-	if(goal_position >= it->second[2] && goal_position <= it->second[3])
+	int goal = convert_Radian2Value(goal_position, it->second[4], it->second[3], it->second[2]);
+
+	if(goal >= it->second[2] && goal <= it->second[3])
 	{
-		if(dynamixel_controller.move_to(it->second[0], DXL_ID, it->second[1], goal_position))
+		if(dynamixel_controller.move_to(it->second[0], DXL_ID, it->second[1], goal))
 			return true;
 	}	
 

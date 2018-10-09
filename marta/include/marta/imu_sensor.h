@@ -49,10 +49,14 @@ class ImuSensor
 		void imuSensorRpyMsg(const geometry_msgs::Vector3Stamped::ConstPtr& msg, int i);
 		void imuSensorTempMsg(const std_msgs::Float32::ConstPtr& msg, int i);
 
-		void imuSensorDataMsgCallback(const sensor_msgs::Imu::ConstPtr& msg);
-		void imuSensorMagMsgCallback(const geometry_msgs::Vector3Stamped::ConstPtr& msg);			
-		void imuSensorRpyMsgCallback(const geometry_msgs::Vector3Stamped::ConstPtr& msg);
-		void imuSensorTempMsgCallback(const std_msgs::Float32::ConstPtr& msg);
+		void imuSensorUpperDataMsgCallback(const sensor_msgs::Imu::ConstPtr& msg);
+		void imuSensorUpperMagMsgCallback(const geometry_msgs::Vector3Stamped::ConstPtr& msg);			
+		void imuSensorUpperRpyMsgCallback(const geometry_msgs::Vector3Stamped::ConstPtr& msg);
+		void imuSensorUpperTempMsgCallback(const std_msgs::Float32::ConstPtr& msg);
+		void imuSensorLowerDataMsgCallback(const sensor_msgs::Imu::ConstPtr& msg);
+		void imuSensorLowerMagMsgCallback(const geometry_msgs::Vector3Stamped::ConstPtr& msg);			
+		void imuSensorLowerRpyMsgCallback(const geometry_msgs::Vector3Stamped::ConstPtr& msg);
+		void imuSensorLowerTempMsgCallback(const std_msgs::Float32::ConstPtr& msg);
 
 	public:
 		ImuSensor();

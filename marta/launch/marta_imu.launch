@@ -1,6 +1,6 @@
 <launch>
-  <node name="marta_imu_upper" pkg="um7" type="um7_driver" output="screen" >
-    <param name="port" value="/dev/ttyUSB1" />
+  <node ns="marta_imu_upper" name="marta_imu_upper" pkg="um7" type="um7_driver" output="screen" >
+    <param name="port" value="/dev/ttyUSB0" />
   </node>
 
 </launch>

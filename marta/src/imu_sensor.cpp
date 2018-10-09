@@ -4,14 +4,16 @@
 
 ImuSensor::ImuSensor()
 {
-	subData_.push_back(node_handle_.subscribe("imu/data", 1, &ImuSensor::imuSensorDataMsgCallback, this));
-		
-	subMag_.push_back(node_handle_.subscribe("imu/mag", 1, &ImuSensor::imuSensorMagMsgCallback, this));
-
-	subRpy_.push_back(node_handle_.subscribe("imu/rpy", 1, &ImuSensor::imuSensorRpyMsgCallback, this));
-
-	subTemp_.push_back(node_handle_.subscribe("imu/temperature", 1, &ImuSensor::imuSensorTempMsgCallback, this));
-
+	subData_.push_back(node_handle_.subscribe("/marta_imu_upper/imu/data", 1, &ImuSensor::imuSensorUpperDataMsgCallback, this));	
+	subMag_.push_back(node_handle_.subscribe("/marta_imu_upper/imu/mag", 1, &ImuSensor::imuSensorUpperMagMsgCallback, this));
+	subRpy_.push_back(node_handle_.subscribe("/marta_imu_upper/imu/rpy", 1, &ImuSensor::imuSensorUpperRpyMsgCallback, this));
+	subTemp_.push_back(node_handle_.subscribe("/marta_imu_upper/imu/temperature", 1, &ImuSensor::imuSensorUpperTempMsgCallback, this));
+/*
+	subData_.push_back(node_handle_.subscribe("/marta_imu_lower/imu/data", 1, &ImuSensor::imuSensorLowerDataMsgCallback, this));	
+	subMag_.push_back(node_handle_.subscribe("/marta_imu_lower/imu/mag", 1, &ImuSensor::imuSensorLowerMagMsgCallback, this));
+	subRpy_.push_back(node_handle_.subscribe("/marta_imu_lower/imu/rpy", 1, &ImuSensor::imuSensorLowerRpyMsgCallback, this));
+	subTemp_.push_back(node_handle_.subscribe("/marta_imu_lower/imu/temperature", 1, &ImuSensor::imuSensorLowerTempMsgCallback, this));
+*/
 	std::vector<float> vec3;
 	vec3.push_back(0.0);
 	vec3.push_back(0.0);
@@ -56,9 +58,14 @@ void ImuSensor::imuSensorDataMsg(const sensor_msgs::Imu::ConstPtr& msg, int i)
 }
 
 
-void ImuSensor::imuSensorDataMsgCallback(const sensor_msgs::Imu::ConstPtr& msg)
+void ImuSensor::imuSensorUpperDataMsgCallback(const sensor_msgs::Imu::ConstPtr& msg)
 {
 	imuSensorDataMsg(msg, 0);
+}
+
+void ImuSensor::imuSensorLowerDataMsgCallback(const sensor_msgs::Imu::ConstPtr& msg)
+{
+	imuSensorDataMsg(msg, 1);
 }
 
 
@@ -70,9 +77,15 @@ void ImuSensor::imuSensorMagMsg(const geometry_msgs::Vector3Stamped::ConstPtr& m
 }
 
 
-void ImuSensor::imuSensorMagMsgCallback(const geometry_msgs::Vector3Stamped::ConstPtr& msg)
+void ImuSensor::imuSensorUpperMagMsgCallback(const geometry_msgs::Vector3Stamped::ConstPtr& msg)
 {
 	imuSensorMagMsg(msg, 0);
+}
+
+
+void ImuSensor::imuSensorLowerMagMsgCallback(const geometry_msgs::Vector3Stamped::ConstPtr& msg)
+{
+	imuSensorMagMsg(msg, 1);
 }
 
 	
@@ -83,9 +96,14 @@ void ImuSensor::imuSensorRpyMsg(const geometry_msgs::Vector3Stamped::ConstPtr& m
 	orientationRadians[i][2] = msg->vector.z;
 }
 
-void ImuSensor::imuSensorRpyMsgCallback(const geometry_msgs::Vector3Stamped::ConstPtr& msg)
+void ImuSensor::imuSensorUpperRpyMsgCallback(const geometry_msgs::Vector3Stamped::ConstPtr& msg)
 {
 	imuSensorRpyMsg(msg, 0);
+}
+
+void ImuSensor::imuSensorLowerRpyMsgCallback(const geometry_msgs::Vector3Stamped::ConstPtr& msg)
+{
+	imuSensorRpyMsg(msg, 1);
 }
 
 void ImuSensor::imuSensorTempMsg(const std_msgs::Float32::ConstPtr& msg, int i)
@@ -93,9 +111,14 @@ void ImuSensor::imuSensorTempMsg(const std_msgs::Float32::ConstPtr& msg, int i)
 	temperature[i] = msg->data;
 }
 
-void ImuSensor::imuSensorTempMsgCallback(const std_msgs::Float32::ConstPtr& msg)
+void ImuSensor::imuSensorUpperTempMsgCallback(const std_msgs::Float32::ConstPtr& msg)
 {
 	imuSensorTempMsg(msg, 0);
+}
+
+void ImuSensor::imuSensorLowerTempMsgCallback(const std_msgs::Float32::ConstPtr& msg)
+{
+	imuSensorTempMsg(msg, 1);
 }
 
 std::vector<float> ImuSensor::get_orientation_quaternion(int index)
